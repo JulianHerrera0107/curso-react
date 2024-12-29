@@ -6,8 +6,6 @@ function App() {
       <h1>Lista de Pendientes</h1>
       <ListaPendientes />
       <ListaPendientes />
-      <ListaPendientes />
-      <ListaPendientes />
     </div>
   );
 }
