@@ -4,14 +4,14 @@ import classes from './MainNavigation.module.css'
 function MainNavigation() {
     return(
         <header className={classes.header}>
-            <div className={classes.logo}>Reuniones de React</div>
+            <div className={classes.logo}>Encuentros React</div>
             <nav>
                 <ul>
                     <li>
-                        <Link to='/'>Todas las Reuniones</Link>
+                        <Link to='/'>Todos los Encuentros</Link>
                     </li>
                     <li>
-                        <Link to='/new-meetup'>Agregar Nueva Reunión</Link>
+                        <Link to='/new-meetup'>Nuevo Encuentro</Link>
                     </li>
                     <li>
                         <Link to='/favorites'>Mis Favoritos</Link>
