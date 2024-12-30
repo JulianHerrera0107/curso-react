@@ -4,8 +4,8 @@ function App() {
   return (
     <div>
       <h1>Lista de Pendientes</h1>
-      <ListaPendientes />
-      <ListaPendientes />
+      <ListaPendientes text='Aprender React'/>
+      <ListaPendientes text='Finalizar curso de React'/>
     </div>
   );
 }
