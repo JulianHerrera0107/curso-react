@@ -3,12 +3,12 @@ import { Route, Switch } from 'react-router-dom';
 import AllMeetupsPage from './pages/AllMeetups';
 import FavoritesPage from './pages/Favorites';
 import NewMeetupPage from './pages/NewMeetup';
-import MainNavigation from './components/layout/MainNavigation';
+import Layout from './components/layout/Layout';
 
 function App() {
   return (
-    <div>
-      <MainNavigation />
+    //Se elimina el div para crear el wrapper Layout
+    <Layout>
       <Switch>
         <Route path='/' exact>
           <AllMeetupsPage />
@@ -20,7 +20,7 @@ function App() {
           <FavoritesPage />
         </Route>
       </Switch>
-    </div>
+    </Layout>
   );
 }
 
