@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import Card from '../user-interface/Card';
 import classes from './NewMeetupForm.module.css';
 
-function NewMeetupForm() {
+function NewMeetupForm(props) {
     const titleInputRef = useRef();
     const imageInputRef = useRef();
     const addressInputRef = useRef();
@@ -22,7 +22,8 @@ function NewMeetupForm() {
             address: enteredAddress,
             description: enteredDescription
         };
-        console.log(meetupData);
+
+        props.onAddMeetup(meetupData); //Función para comunicar la info del form
     }
     return (
         //Utilizamos el estilo de tarjeta from "Card.js"
@@ -30,7 +31,7 @@ function NewMeetupForm() {
             <form className={classes.form} onSubmit={submitHandler}>
                 <div className={classes.control}>
                     <label htmlFor='title'>Titulo del Encuentro</label>
-                    <input type='text' required id='title' ref={titleInputRef}/>
+                    <input type='text' required id='title' ref={titleInputRef} />
                 </div>
                 <div className={classes.control}>
                     <label htmlFor='image'>Imagén del Encuentro</label>
