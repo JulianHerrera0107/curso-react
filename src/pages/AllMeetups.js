@@ -1,33 +1,47 @@
+import { useState, useEffect } from 'react';
 import MeetupList from '../components/meetups/MeetupList';
 
-const DUMMY_DATA = [
-    {
-      id: 'm1',
-      title: 'Este es nuestro primer encuentro',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Stadtbild_M%C3%BCnchen.jpg/2560px-Stadtbild_M%C3%BCnchen.jpg',
-      address: 'Meetupstreet 5, 12345 Meetup City',
-      description:
-        'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!',
-    },
-    {
-      id: 'm2',
-      title: 'Este es nuestro segundo encuentro',
-      image:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Cabo_San_Juan%2C_Colombia.jpg/273px-Cabo_San_Juan%2C_Colombia.jpg',
-      address: 'Cabo San Juan en el Parque Tayrona en Santa Marta.',
-      description:
-        'This is a first, amazing meetup which you definitely should not miss. It will be a lot of fun!',
-    },
-  ];
+function AllMeetupsPage() {
+  const [isLoading, setisLoading] = useState(true);
+  const [loadedMeetups, setLoadedMeetups] = useState([]);
 
-function AllMeetupsPage(){
-    return(
-        <section>
-            <h1>Todos los encuentros</h1>
-            <MeetupList meetups={DUMMY_DATA} />
+  useEffect(() => {
+    setisLoading(true);
+    fetch(
+      'https://react-getting-started-d57b7-default-rtdb.firebaseio.com/meetups.json'
+    ).then(response => {
+      return response.json();
+    }).then((data) => {
+      //Necesitamos transformar la DATA
+      const meetupsDB = [];
+      for (const key in data) {
+        const meetup = {
+          id: key,
+          //Spread Operator para copiar elementos y agregarlos a Key
+          ...data[key]
+        };
+        meetupsDB.push(meetup);
+      }
 
-        </section>
-    );
+      setisLoading(false);
+      setLoadedMeetups(meetupsDB);
+    });
+  }, []);
+
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Cargando datos...</p>
+      </section>
+    )
+  }
+  return (
+    <section>
+      <h1>Todos los encuentros</h1>
+      <MeetupList meetups={loadedMeetups} />
+
+    </section>
+  );
 }
 export default AllMeetupsPage;
