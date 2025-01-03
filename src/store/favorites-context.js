@@ -2,10 +2,16 @@ import { createContext, useState } from "react";
 
 const FavoritesContext = createContext({
     favorites: [],
-    totalFavorites: 0
+    totalFavorites: 0,
+    //Funciones para comprobar si los parametros son corrwctos
+    //Nos permitira un mejor autocompletar en el IDE
+    addFavorite: (favoriteMeetup) => { },
+    removeFavorite: (meetupId) => { },
+    checkItemIsFavorite: (meetupId) => { }
+
 });
 
-function FavoritesContextProvider(props){
+export function FavoritesContextProvider(props) {
     const [userFavorites, setUserFavorites] = useState([]);
 
     //Botón para añadir
@@ -30,7 +36,7 @@ function FavoritesContextProvider(props){
     }
 
     //Función para determinar si un elemento es favorito o no
-    function itemIsFavoriteHandle(meetupId) {
+    function checkItemIsFavoriteHandler(meetupId) {
         //Si un elemento coincide con nuestros favoritos devuelve true o false
         //Nos permite averiguar si los ID del usuario se encuentran marcados como favortios
         return userFavorites.some(meetup => meetup.id === meetupId);
@@ -39,9 +45,17 @@ function FavoritesContextProvider(props){
     const context = {
         favorites: userFavorites,
         totalFavorites: userFavorites.length,
+        //Almacenamos las funciones en un valor para ser utiiizados por los componentes
+        addFavorite: addFavoriteHandler,
+        removeFavorite: removeFavoriteHandler,
+        checkItemIsFavorite: checkItemIsFavoriteHandler
     };
 
-    return <FavoritesContext.Provider value={context}>
-        {props.children}
-    </FavoritesContext.Provider>
+    return (
+        //Acceso al contexto para todos los componentes involucrados por Props
+        <FavoritesContext.Provider value={context}>
+            {props.children}
+        </FavoritesContext.Provider>
+    );
 }
+export default FavoritesContext;
